@@ -1,0 +1,39 @@
+name: poll-ccu
+
+# Records Roblox CCU history every 15 minutes on GitHub's infra — 24/7,
+# regardless of whether Max's PC is on. workflow_dispatch runs it on demand.
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+# The built-in GITHUB_TOKEN is enough to push ccu.json back. No PAT, no secret.
+permissions:
+  contents: write
+
+# Never let two ticks race the same push.
+concurrency:
+  group: poll-ccu
+  cancel-in-progress: false
+
+jobs:
+  poll:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Poll Roblox CCU
+        run: node poll.mjs
+      - name: Commit the reading (if the file changed)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain ccu.json)" ]; then
+            git add ccu.json
+            git commit -m "ccu: reading at $(date -u +%FT%TZ)"
+            git push
+          else
+            echo "ccu.json unchanged — an honest gap or an identical reading; nothing to push."
+          fi
