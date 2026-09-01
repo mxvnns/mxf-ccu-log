@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-01T19:01:07.357Z",
+  "updated": "2026-09-01T19:15:45.753Z",
   "readings": [
     {
       "ts": "2026-07-20T23:17:32.807Z",
@@ -132797,6 +132797,38 @@
           "visits": 111429075,
           "favourites": 282444,
           "upVotes": 313003,
+          "downVotes": 10437
+        }
+      ]
+    },
+    {
+      "ts": "2026-09-01T19:15:45.753Z",
+      "games": [
+        {
+          "universeId": 10236012001,
+          "name": "Butter Wax Tower [BUILD!]",
+          "playing": 54,
+          "visits": 5714200,
+          "favourites": 53668,
+          "upVotes": 5079,
+          "downVotes": 451
+        },
+        {
+          "universeId": 10480688709,
+          "name": "ASMR Squishy Obby",
+          "playing": 26,
+          "visits": 466809,
+          "favourites": 23601,
+          "upVotes": 137,
+          "downVotes": 51
+        },
+        {
+          "universeId": 10236023188,
+          "name": "ASMR Tower [W4]",
+          "playing": 1798,
+          "visits": 111433638,
+          "favourites": 282455,
+          "upVotes": 313014,
           "downVotes": 10437
         }
       ]
