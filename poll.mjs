@@ -45,7 +45,6 @@ const WINDOW_MS = 90 * 24 * 60 * 60 * 1000 // rolling ~90-day retention
 
 const GAMES = 'https://games.roblox.com/v1/games'
 const VOTES = 'https://games.roblox.com/v1/games/votes'
-const PLACE_UNIVERSE = (id) => `https://apis.roblox.com/universes/v1/places/${id}/universe`
 
 async function getJson(url) {
   const r = await fetch(url, { headers: { accept: 'application/json' } })
@@ -66,40 +65,17 @@ async function readUniverses() {
   return { own, rivals }
 }
 
-/**
- * PLACE-ID RESILIENCE. Most configured ids ARE universe ids and the batched
- * games read finds them directly. For any id that the read does NOT return,
- * treat it as a PLACE id and resolve it to its universe id. Returns a map
- * configured id → working universe id (missing = unresolvable this tick).
+/*
+ * ⛔ P66 — ONLY THE UNIVERSE IDS IN universes.json ARE EVER POLLED. NOTHING IS
+ * RESOLVED. This used to treat any id the games read missed as a PLACE id and
+ * poll whatever universe that place belonged to. A universe id and a place id
+ * are different number spaces that overlap: on 2026-09-03 01:01 UTC one games
+ * read failed, the fallback re-read Max's own universe 10480688709 as a place
+ * id, and that place belongs to a stranger's game, so a stranger's game was
+ * recorded. The OS already resolves a pasted link to its universe id before it
+ * writes universes.json, so the fallback had nothing left to do but this.
+ * A game the read does not return is an honest gap (null) this tick.
  */
-async function resolveUniverseIds(ids) {
-  let found = new Set()
-  try {
-    const d = await getJson(`${GAMES}?universeIds=${ids.join(',')}`)
-    found = new Set((d.data ?? []).map((g) => g.id))
-  } catch (e) {
-    console.error('direct universe read failed:', e.message)
-  }
-  const out = new Map()
-  for (const id of ids) {
-    if (found.has(id)) {
-      out.set(id, id)
-      continue
-    }
-    try {
-      const u = await getJson(PLACE_UNIVERSE(id))
-      if (u.universeId != null) {
-        console.error(`resolved place ${id} -> universe ${u.universeId}`)
-        out.set(id, u.universeId)
-      } else {
-        console.error(`id ${id}: not a universe and place-resolve returned null — skipped`)
-      }
-    } catch (e) {
-      console.error(`id ${id}: place-resolve failed (${e.message}) — skipped`)
-    }
-  }
-  return out
-}
 
 const num = (v) => (typeof v === 'number' && Number.isFinite(v) ? v : null)
 
@@ -178,14 +154,8 @@ export function renderV2({ history, names, latest }) {
 
 async function poll() {
   const { own, rivals } = await readUniverses()
-  const configured = [...own, ...rivals]
-  const resolved = await resolveUniverseIds(configured)
-  const universeIds = [...new Set(resolved.values())]
-  if (universeIds.length === 0) {
-    console.error('no resolvable games this tick — skipping (honest gap)')
-    return
-  }
-  const ownResolved = new Set(own.map((id) => resolved.get(id)).filter((id) => id !== undefined))
+  const universeIds = [...own, ...rivals]
+  const ownIds = new Set(own)
 
   let gamesData = []
   let votesData = []
@@ -239,7 +209,7 @@ async function poll() {
     if (g?.name) names.set(id, g.name)
   }
   for (const id of universeIds) {
-    if (!ownResolved.has(id)) continue
+    if (!ownIds.has(id)) continue
     const g = byId.get(id)
     f.set(id, [g?.visits ?? null, g?.favourites ?? null, g?.upVotes ?? null, g?.downVotes ?? null])
   }
