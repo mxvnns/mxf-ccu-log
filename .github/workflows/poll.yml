@@ -33,7 +33,13 @@ jobs:
           if [ -n "$(git status --porcelain ccu.json)" ]; then
             git add ccu.json
             git commit -m "ccu: reading at $(date -u +%FT%TZ)"
-            git push
+            # P64: the OS Sync button may push universes.json between checkout and
+            # here. Its commit never touches ccu.json, so the rebase is always clean.
+            for attempt in 1 2 3; do
+              git push && exit 0
+              git pull --rebase origin main
+            done
+            exit 1
           else
             echo "ccu.json unchanged — an honest gap or an identical reading; nothing to push."
           fi

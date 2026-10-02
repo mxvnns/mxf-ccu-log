@@ -1,0 +1,75 @@
+{
+  "note": "Which games the cloud poller records. own = Max's games (full stats kept in history); rivals = his Rival radar watchlist (player counts kept in history). Written by the MXF MASTERMIND OS Sync button.",
+  "own": [
+    {
+      "universeId": 10236012001,
+      "name": "Butter Wax Tower"
+    },
+    {
+      "universeId": 10480688709,
+      "name": "ASMR Squishy Obby"
+    }
+  ],
+  "rivals": [
+    {
+      "universeId": 10127090395,
+      "name": "+1 Speed Slime Keyboard Escape"
+    },
+    {
+      "universeId": 10236023188,
+      "name": "ASMR Tower [W3]"
+    },
+    {
+      "universeId": 9874419878,
+      "name": "[WORLD 11] Needoh Tower"
+    },
+    {
+      "universeId": 7893073096,
+      "name": "ASMR Squishy Wallhop Tower "
+    },
+    {
+      "universeId": 10270331748,
+      "name": "[WORLD 5] +1 Run for NEEDOH!"
+    },
+    {
+      "universeId": 10222770592,
+      "name": "ASMR Squishy Tower! [🌟EVENT]"
+    },
+    {
+      "universeId": 10328407111,
+      "name": "⌨Needoh ASMR OBBY🎧"
+    },
+    {
+      "universeId": 10272020404,
+      "name": "[🎧] ASMR Gun Tower"
+    },
+    {
+      "universeId": 10207000525,
+      "name": "+1 Crunchy Butter Escape [W3]"
+    },
+    {
+      "universeId": 10138661961,
+      "name": "[X4] +1 Speed Brick Escape"
+    },
+    {
+      "universeId": 10283918188,
+      "name": "[MEGA UPDATE] Squishy ASMR World🫧"
+    },
+    {
+      "universeId": 10200713960,
+      "name": "+1 Speed Butter Escape🧈"
+    },
+    {
+      "universeId": 10287542608,
+      "name": "[UPDATE] ASMR Jelly Tower [W2]"
+    },
+    {
+      "universeId": 10187551198,
+      "name": "{TOWER 2} Wax Squishy Tower"
+    },
+    {
+      "universeId": 10404779971,
+      "name": "🍗Mukbang Tower [ASMR]"
+    }
+  ]
+}
