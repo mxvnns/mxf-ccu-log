@@ -12,6 +12,32 @@
     {
       "universeId": 10667990790,
       "name": "ASMR Game [UPD!]"
+    }
+  ],
+  "rivals": [
+    {
+      "universeId": 10236023188,
+      "name": "ASMR Tower [W3]"
+    },
+    {
+      "universeId": 9874419878,
+      "name": "[WORLD 11] Needoh Tower"
+    },
+    {
+      "universeId": 7893073096,
+      "name": "ASMR Squishy Wallhop Tower "
+    },
+    {
+      "universeId": 10222770592,
+      "name": "ASMR Squishy Tower! [🌟EVENT]"
+    },
+    {
+      "universeId": 10328407111,
+      "name": "⌨Needoh ASMR OBBY🎧"
+    },
+    {
+      "universeId": 10272020404,
+      "name": "[🎧] ASMR Gun Tower"
     },
     {
       "universeId": 10638886777,
@@ -44,32 +70,6 @@
     {
       "universeId": 10742513544,
       "name": "Steal ASMR From Kids"
-    }
-  ],
-  "rivals": [
-    {
-      "universeId": 10236023188,
-      "name": "ASMR Tower [W3]"
-    },
-    {
-      "universeId": 9874419878,
-      "name": "[WORLD 11] Needoh Tower"
-    },
-    {
-      "universeId": 7893073096,
-      "name": "ASMR Squishy Wallhop Tower "
-    },
-    {
-      "universeId": 10222770592,
-      "name": "ASMR Squishy Tower! [🌟EVENT]"
-    },
-    {
-      "universeId": 10328407111,
-      "name": "⌨Needoh ASMR OBBY🎧"
-    },
-    {
-      "universeId": 10272020404,
-      "name": "[🎧] ASMR Gun Tower"
     }
   ]
 }
